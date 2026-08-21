@@ -1,9 +1,12 @@
 site_name: AITraining
 site_description: AI-Assisted Development — hands-on curriculum for developers
-site_url: https://your-org.github.io/aitraining/
+site_url: https://www.vidushika.com/aitraining/
 
 theme:
   name: material
+  icon:
+    logo: material/robot
+  favicon: assets/images/favicon.png
   palette:
     - scheme: default
       primary: indigo
