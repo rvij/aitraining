@@ -275,7 +275,7 @@ uv run mkdocs gh-deploy   # build and push to gh-pages branch
 # Local preview
 uv run mkdocs serve
 
-# Deploy to GitHub Pages
+# Deploy to GitHub Pages (rvij.github.io/aitraining)
 uv run mkdocs gh-deploy
 
 # Force redeploy (overwrites gh-pages branch cleanly)
@@ -283,3 +283,41 @@ uv run mkdocs gh-deploy --force
 ```
 
 Live site: https://rvij.github.io/aitraining/
+
+---
+
+## Deploying to www.vidushika.com/aitraining
+
+The AITraining docs are also served at `www.vidushika.com/aitraining/`. This works by building the site and copying it as a subfolder into the `rvij/vidushika.com` repo, which is the repo behind `www.vidushika.com`.
+
+### Why this approach
+
+GitHub Pages serves each repo at its own path. To serve the AITraining docs at a subpath of an existing custom domain (`www.vidushika.com/aitraining/`), the built HTML must live as a subfolder inside the repo that owns that domain — there is no native GitHub Pages way to route subpaths across repos.
+
+### Deploy steps
+
+```bash
+# 1. Build the AITraining site
+cd /Users/rvij/Documents/projects/aiskills/aitraining
+uv run mkdocs build
+
+# 2. Copy into the vidushika.com repo (replace previous version)
+rm -rf /Users/rvij/Documents/projects/aiskills/vidushika.com/aitraining
+cp -r site /Users/rvij/Documents/projects/aiskills/vidushika.com/aitraining
+
+# 3. Commit and push
+cd /Users/rvij/Documents/projects/aiskills/vidushika.com
+git add aitraining/
+git commit -m "Update AITraining docs"
+git push
+```
+
+### Important: set site_url correctly
+
+`mkdocs.yml` must have the correct `site_url` so internal links and assets resolve properly under the `/aitraining/` subpath:
+
+```yaml
+site_url: https://www.vidushika.com/aitraining/
+```
+
+Live site: https://www.vidushika.com/aitraining/
