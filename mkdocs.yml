@@ -1,0 +1,55 @@
+site_name: AITraining
+site_description: AI-Assisted Development — hands-on curriculum for developers
+site_url: https://your-org.github.io/aitraining/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Getting Started: index.md
+  - Setup:
+    - IDE Setup: setup/ide-setup.md
+    - Repository Setup: setup/repo-setup.md
+  - AI-Assisted Development:
+    - Introduction: ai-dev/intro.md
+    - IDE Features: ai-dev/ide-features.md
+    - AGENTS.md & Instructions: ai-dev/agents-md.md
+    - Effective Prompting: ai-dev/prompting.md
+  - Writing Code with AI:
+    - Generate & Run Tests: writing-code/generate-tests.md
+    - Refactoring Code: writing-code/refactor.md
+    - Code Review: writing-code/review.md
