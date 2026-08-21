@@ -1,0 +1,27 @@
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Deploy to GitHub Pages
+        run: uv run mkdocs gh-deploy --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify vidushika.com to sync
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.VIDUSHIKA_SYNC_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/rvij/vidushika.com/dispatches \
+            -d '{"event_type":"aitraining-updated"}'
